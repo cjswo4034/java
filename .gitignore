@@ -1,0 +1,15 @@
+# Project exclude paths
+/target/
+/.idea/
+/.settings/
+
+/src/main/java/ps/kakao/
+/src/main/java/ps/naver/
+/src/test/java/ps/kakao/
+/src/test/java/ps/naver/
+
+.classpath
+.project
+java.iml
+
+/doc/컴퓨터공학.lnk
