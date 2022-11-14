@@ -2,12 +2,39 @@ package ps.pgmrs.lv3;
 
 public class 카운트_다운 {
     public int[] solution(int target) {
+        int[][] mem = init(target);
+        for (int i = 61; i <= target; i++) {
+            mem[i][0] = mem[i - 50][0] + 1;
+            mem[i][1] = mem[i - 50][1] + 1;
+            arr(mem[i], mem[i - 60][0] + 1, mem[i - 60][1]);
+        }
+        return mem[target];
+    }
+
+    private int[][] init(int target) {
+        boolean[] isPossibleAtOnce = new boolean[61];
+        isPossibleAtOnce[50] = true;
+        for (int i = 1; i <= 20; i++)
+            isPossibleAtOnce[i] = isPossibleAtOnce[i * 2] = isPossibleAtOnce[i * 3] = true;
+
+        int[][] mem = new int[target + 1][2];
+        for (int i = 1, len = Math.min(60, target); i <= len; i++) {
+            if (isPossibleAtOnce[i]) {
+                mem[i][0] = 1;
+                if (i <= 20 || i == 50) mem[i][1] = 1;
+            } else {
+                mem[i][0] = 2;
+                mem[i][1] = (i > 50 || i <= 40) ? 2 : 1;
+            }
+        }
+        return mem;
+    }
+
+    public int[] solution2(int target) {
         int[][] dist = initDist(target);
         for (int i = 61; i <= target; i++) {
-            dist[i][0] = dist[i - 20][0] + 1;
-            dist[i][1] = dist[i - 20][1] + 1;
-            arr(dist[i], dist[i - 50][0] + 1, dist[i - 50][1] + 1);
-            arr(dist[i], dist[i - 40][0] + 1, dist[i - 40][1]);
+            dist[i][0] = dist[i - 50][0] + 1;
+            dist[i][1] = dist[i - 50][1] + 1;
             arr(dist[i], dist[i - 60][0] + 1, dist[i - 60][1]);
         }
 
