@@ -30,20 +30,16 @@ public class TestUtil {
         return list.stream().mapToInt(i -> i).toArray();
     }
 
-    public static int[][] strMatrixToIntMatrix(String str) {
-        String[] splicedStr = Arrays.stream(str.split("(], \\[)"))
-                .map(row -> row.replaceAll("[\\[\\]]", ""))
-                .toArray(String[]::new);
-        return Arrays.stream(splicedStr)
-                .map(TestUtil::strArrToIntArr)
-                .toArray(int[][]::new);
+    public static String[][] strToMatrix(String str) {
+        return Arrays.stream(str.split("(], ?\\[)"))
+                .map(row -> row.replaceAll("[\\[\\]]", "").split(","))
+                .toArray(String[][]::new);
     }
 
-    public static int[] strArrToIntArr(String row) {
-        return Arrays.stream(row.split("[,]"))
-                .map(String::strip)
-                .mapToInt(Integer::parseInt)
-                .toArray();
+    public static int[][] strMatrixToIntMatrix(String str) {
+        return Arrays.stream(strToMatrix(str))
+                .map(row -> Arrays.stream(row).mapToInt(Integer::parseInt).toArray())
+                .toArray(int[][]::new);
     }
 
     private static int countLeftBrace(String str) {
