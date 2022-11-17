@@ -32,7 +32,7 @@ public class TestUtil {
 
     public static String[][] strToMatrix(String str) {
         return Arrays.stream(str.split("(], ?\\[)"))
-                .map(row -> row.replaceAll("[\\[\\]]", "").split(","))
+                .map(row -> row.replaceAll("[\\[\\] ]", "").split(","))
                 .toArray(String[][]::new);
     }
 
